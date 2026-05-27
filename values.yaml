@@ -1,0 +1,108 @@
+namespace: roboshop
+
+# Private DNS zone matches Terraform env — dev.roboshop.internal for dev cluster
+dnsZone: dev.roboshop.internal
+
+db:
+  mysqlHost: mysql.dev.roboshop.internal
+  mongodbHost: mongodb.dev.roboshop.internal
+  valkeyHost: valkey.dev.roboshop.internal
+  rabbitmqHost: rabbitmq.dev.roboshop.internal
+
+ingress:
+  className: traefik
+  domain: tek-nik.com
+
+# Default resource limits applied to all services
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+# All services disabled by default; each service enables itself via its own values file
+services:
+  frontend:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-frontend
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: true
+      host: "roboshop.tek-nik.com"
+
+  catalogue:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-catalogue
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  user:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-user
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  cart:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-cart
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  shipping:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-shipping
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  payment:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-payment
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  ratings:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-ratings
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  # orders and notification not yet available — disabled until source is added
+  orders:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-orders
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+
+  notification:
+    enabled: false
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-notification
+    tag: latest
+    port: 8080
+    replicas: 1
+    ingress:
+      enabled: false

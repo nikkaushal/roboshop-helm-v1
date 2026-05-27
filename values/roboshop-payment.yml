@@ -1,0 +1,9 @@
+services:
+  payment:
+    enabled: true
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-payment
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false

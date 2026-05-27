@@ -1,0 +1,10 @@
+services:
+  frontend:
+    enabled: true
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-frontend
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: true
+      host: "roboshop.tek-nik.com"

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "roboshop.labels" . | nindent 4 }}
+data:
+  MYSQL_HOST: {{ .Values.db.mysqlHost | quote }}
+  MONGODB_HOST: {{ .Values.db.mongodbHost | quote }}
+  VALKEY_HOST: {{ .Values.db.valkeyHost | quote }}
+  RABBITMQ_HOST: {{ .Values.db.rabbitmqHost | quote }}
+  CATALOGUE_HOST: "catalogue.{{ .Values.namespace }}.svc.cluster.local"
+  USER_HOST: "user.{{ .Values.namespace }}.svc.cluster.local"
+  CART_HOST: "cart.{{ .Values.namespace }}.svc.cluster.local"
+  SHIPPING_HOST: "shipping.{{ .Values.namespace }}.svc.cluster.local"
+  PAYMENT_HOST: "payment.{{ .Values.namespace }}.svc.cluster.local"
+  NOTIFICATION_HOST: "notification.{{ .Values.namespace }}.svc.cluster.local"
+  ORDERS_HOST: "orders.{{ .Values.namespace }}.svc.cluster.local"
+  RATINGS_HOST: "ratings.{{ .Values.namespace }}.svc.cluster.local"
