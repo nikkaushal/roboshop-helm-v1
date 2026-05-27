@@ -11,8 +11,7 @@ metadata:
     app.kubernetes.io/instance: {{ $.Release.Name }}
     {{- include "roboshop.labels" $ | nindent 4 }}
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     external-dns.alpha.kubernetes.io/hostname: {{ $svc.ingress.host }}
 spec:
   ingressClassName: {{ $.Values.ingress.className }}
@@ -27,8 +26,5 @@ spec:
                 name: {{ $name }}
                 port:
                   number: {{ $svc.port }}
-  tls:
-    - hosts:
-        - {{ $svc.ingress.host }}
 {{- end }}
 {{- end }}
