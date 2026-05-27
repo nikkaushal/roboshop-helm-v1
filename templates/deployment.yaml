@@ -32,6 +32,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: roboshop-config
+          {{- if $svc.env }}
+          env:
+            {{- toYaml $svc.env | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
       topologySpreadConstraints:
