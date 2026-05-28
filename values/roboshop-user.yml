@@ -7,3 +7,6 @@ services:
     replicas: 2
     ingress:
       enabled: false
+    env:
+      - name: MONGO_URL
+        value: "mongodb://mongodb.dev.roboshop.internal:27017/users"

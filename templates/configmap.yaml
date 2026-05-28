@@ -15,6 +15,7 @@ data:
   AMQP_HOST: {{ .Values.db.rabbitmqHost | quote }}
   AMQP_USER: "roboshop"
   AMQP_PASS: "RoboShop@1"
+  PORT: "8080"
   CATALOGUE_HOST: "catalogue.{{ .Values.namespace }}.svc.cluster.local"
   USER_HOST: "user.{{ .Values.namespace }}.svc.cluster.local"
   CART_HOST: "cart.{{ .Values.namespace }}.svc.cluster.local"
