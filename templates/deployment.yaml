@@ -22,6 +22,15 @@ spec:
         app.kubernetes.io/name: {{ $name }}
         app.kubernetes.io/instance: {{ $.Release.Name }}
     spec:
+      {{- if and $svc.dbInit $svc.dbInit.enabled }}
+      initContainers:
+        - name: db-init
+          image: "{{ $svc.dbInit.image }}:{{ $svc.dbInit.tag | default "latest" }}"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: roboshop-config
+      {{- end }}
       containers:
         - name: {{ $name }}
           image: "{{ $svc.image }}:{{ $svc.tag }}"
