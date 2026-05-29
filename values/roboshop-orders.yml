@@ -1,12 +1,16 @@
-services:
-  orders:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-orders
-    tag: latest
-    port: 8080
-    replicas: 2
-    ingress:
-      enabled: false
-    env:
-      - name: MONGO_URL
-        value: "mongodb://mongodb.dev.roboshop.internal:27017/orders"
+appName: roboshop-orders
+appPort: 8080
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "MONGO_URL AMQP_HOST AMQP_USER AMQP_PASS CART_HOST USER_HOST SHIPPING_URL PORT"
+config_values:
+  MONGO_URL: "mongodb://mongodb.dev.roboshop.internal:27017/orders"
+  AMQP_HOST: "rabbitmq.dev.roboshop.internal"
+  AMQP_USER: "roboshop"
+  AMQP_PASS: "RoboShop@1"
+  CART_HOST: "roboshop-cart.roboshop.svc.cluster.local"
+  USER_HOST: "roboshop-user.roboshop.svc.cluster.local"
+  SHIPPING_URL: "http://roboshop-shipping.roboshop.svc.cluster.local:8080"
+  PORT: "8080"
+ingress:
+  enabled: false

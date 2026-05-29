@@ -1,13 +1,11 @@
-services:
-  ratings:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-ratings
-    tag: latest
-    port: 8080
-    replicas: 2
-    ingress:
-      enabled: false
-    dbInit:
-      enabled: true
-      image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-ratings-db
-      tag: latest
+appName: roboshop-ratings
+appPort: 8080
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "DB_HOST DB_ROOT_PASS PORT"
+config_values:
+  DB_HOST: "mysql.dev.roboshop.internal"
+  DB_ROOT_PASS: "RoboShop@1"
+  PORT: "8080"
+ingress:
+  enabled: false

@@ -1,16 +1,11 @@
-services:
-  user:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-user
-    tag: latest
-    port: 8080
-    replicas: 2
-    ingress:
-      enabled: false
-    dbInit:
-      enabled: true
-      image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-user-db
-      tag: latest
-    env:
-      - name: MONGO_URL
-        value: "mongodb://mongodb.dev.roboshop.internal:27017/users"
+appName: roboshop-user
+appPort: 8080
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "MONGO_URL REDIS_HOST PORT"
+config_values:
+  MONGO_URL: "mongodb://mongodb.dev.roboshop.internal:27017/users"
+  REDIS_HOST: "valkey.dev.roboshop.internal"
+  PORT: "8080"
+ingress:
+  enabled: false

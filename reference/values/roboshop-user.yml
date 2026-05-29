@@ -1,0 +1,16 @@
+services:
+  user:
+    enabled: true
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-user
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+    dbInit:
+      enabled: true
+      image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-user-db
+      tag: latest
+    env:
+      - name: MONGO_URL
+        value: "mongodb://mongodb.dev.roboshop.internal:27017/users"

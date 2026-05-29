@@ -1,0 +1,13 @@
+services:
+  catalogue:
+    enabled: true
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-catalogue
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+    dbInit:
+      enabled: true
+      image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-catalogue-db
+      tag: latest

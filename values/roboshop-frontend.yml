@@ -1,10 +1,15 @@
-services:
-  frontend:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-frontend
-    tag: latest
-    port: 80
-    replicas: 2
-    ingress:
-      enabled: true
-      host: "roboshop.tek-nik.com"
+appName: roboshop-frontend
+appPort: 80
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "CATALOGUE_URL CART_URL USER_URL PAYMENT_HOST SHIPPING_URL RATINGS_HOST"
+config_values:
+  CATALOGUE_URL: "http://roboshop-catalogue.roboshop.svc.cluster.local:8080"
+  CART_URL: "http://roboshop-cart.roboshop.svc.cluster.local:8080"
+  USER_URL: "http://roboshop-user.roboshop.svc.cluster.local:8080"
+  PAYMENT_HOST: "roboshop-payment.roboshop.svc.cluster.local"
+  SHIPPING_URL: "http://roboshop-shipping.roboshop.svc.cluster.local:8080"
+  RATINGS_HOST: "roboshop-ratings.roboshop.svc.cluster.local"
+ingress:
+  enabled: true
+  host: "roboshop.tek-nik.com"

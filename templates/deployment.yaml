@@ -1,58 +1,38 @@
-{{- range $name, $svc := .Values.services }}
-{{- if $svc.enabled }}
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $name }}
-  namespace: {{ $.Values.namespace }}
+  name: {{ .Values.appName }}
   labels:
-    app.kubernetes.io/name: {{ $name }}
-    app.kubernetes.io/instance: {{ $.Release.Name }}
-    {{- include "roboshop.labels" $ | nindent 4 }}
+    appName: {{ .Values.appName }}
 spec:
-  replicas: {{ $svc.replicas }}
+  replicas: {{ .Values.replicas | default 2 }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ $name }}
-      app.kubernetes.io/instance: {{ $.Release.Name }}
+      appName: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ $name }}
-        app.kubernetes.io/instance: {{ $.Release.Name }}
+        appName: {{ .Values.appName }}
     spec:
-      {{- if and $svc.dbInit $svc.dbInit.enabled }}
+      serviceAccountName: {{ .Values.appName }}
+      volumes:
+      - name: params
+        emptyDir: {}
       initContainers:
-        - name: db-init
-          image: "{{ $svc.dbInit.image }}:{{ $svc.dbInit.tag | default "latest" }}"
-          imagePullPolicy: Always
-          envFrom:
-            - configMapRef:
-                name: roboshop-config
-      {{- end }}
+      - name: ssm-pull
+        image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/ssm-pull:latest
+        imagePullPolicy: Always
+        env:
+          - name: PARAMS
+            value: {{ .Values.PARAMS }}
+          - name: SERVICE_NAME
+            value: {{ .Values.appName }}
+        volumeMounts:
+        - name: params
+          mountPath: /data
       containers:
-        - name: {{ $name }}
-          image: "{{ $svc.image }}:{{ $svc.tag }}"
-          imagePullPolicy: Always
-          ports:
-            - containerPort: {{ $svc.port }}
-              protocol: TCP
-          envFrom:
-            - configMapRef:
-                name: roboshop-config
-          {{- if $svc.env }}
-          env:
-            {{- toYaml $svc.env | nindent 12 }}
-          {{- end }}
-          resources:
-            {{- toYaml $.Values.resources | nindent 12 }}
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: {{ $name }}
-{{- end }}
-{{- end }}
+      - name: {{ .Values.appName }}
+        image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.appName }}:{{ .Values.image_tag }}
+        volumeMounts:
+        - name: params
+          mountPath: /data

@@ -1,14 +1,13 @@
-appName: roboshop-payment
+appName: roboshop-notification
 appPort: 8080
 serviceType: ClusterIP
 image_tag: latest
-PARAMS: "AMQP_HOST AMQP_USER AMQP_PASS CART_HOST USER_HOST PORT"
+PARAMS: "MONGO_URL AMQP_HOST AMQP_USER AMQP_PASS PORT"
 config_values:
+  MONGO_URL: "mongodb://mongodb.dev.roboshop.internal:27017/notifications"
   AMQP_HOST: "rabbitmq.dev.roboshop.internal"
   AMQP_USER: "roboshop"
   AMQP_PASS: "RoboShop@1"
-  CART_HOST: "roboshop-cart.roboshop.svc.cluster.local"
-  USER_HOST: "roboshop-user.roboshop.svc.cluster.local"
   PORT: "8080"
 ingress:
   enabled: false

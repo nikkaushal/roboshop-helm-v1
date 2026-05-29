@@ -1,30 +1,22 @@
-{{- range $name, $svc := .Values.services }}
-{{- if and $svc.enabled $svc.ingress.enabled }}
----
+{{ if and .Values.ingress (default false .Values.ingress.enabled) }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $name }}
-  namespace: {{ $.Values.namespace }}
-  labels:
-    app.kubernetes.io/name: {{ $name }}
-    app.kubernetes.io/instance: {{ $.Release.Name }}
-    {{- include "roboshop.labels" $ | nindent 4 }}
+  name: {{ .Values.appName }}-ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    external-dns.alpha.kubernetes.io/hostname: {{ $svc.ingress.host }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
 spec:
-  ingressClassName: {{ $.Values.ingress.className }}
+  ingressClassName: traefik
   rules:
-    - host: {{ $svc.ingress.host }}
+    - host: {{ .Values.ingress.host }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ $name }}
+                name: {{ .Values.appName }}
                 port:
-                  number: {{ $svc.port }}
-{{- end }}
-{{- end }}
+                  number: {{ .Values.appPort }}
+{{ end }}

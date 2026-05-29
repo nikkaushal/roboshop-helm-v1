@@ -1,9 +1,11 @@
-services:
-  cart:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-cart
-    tag: latest
-    port: 8080
-    replicas: 2
-    ingress:
-      enabled: false
+appName: roboshop-cart
+appPort: 8080
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "REDIS_HOST CATALOGUE_URL PORT"
+config_values:
+  REDIS_HOST: "valkey.dev.roboshop.internal"
+  CATALOGUE_URL: "http://roboshop-catalogue.roboshop.svc.cluster.local:8080"
+  PORT: "8080"
+ingress:
+  enabled: false

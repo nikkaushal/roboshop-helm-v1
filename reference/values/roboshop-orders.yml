@@ -1,0 +1,12 @@
+services:
+  orders:
+    enabled: true
+    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-orders
+    tag: latest
+    port: 8080
+    replicas: 2
+    ingress:
+      enabled: false
+    env:
+      - name: MONGO_URL
+        value: "mongodb://mongodb.dev.roboshop.internal:27017/orders"

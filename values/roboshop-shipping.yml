@@ -1,13 +1,12 @@
-services:
-  shipping:
-    enabled: true
-    image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-shipping
-    tag: latest
-    port: 8080
-    replicas: 2
-    ingress:
-      enabled: false
-    dbInit:
-      enabled: true
-      image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-shipping-db
-      tag: latest
+appName: roboshop-shipping
+appPort: 8080
+serviceType: ClusterIP
+image_tag: latest
+PARAMS: "DB_HOST DB_ROOT_PASS CART_HOST PORT"
+config_values:
+  DB_HOST: "mysql.dev.roboshop.internal"
+  DB_ROOT_PASS: "RoboShop@1"
+  CART_HOST: "roboshop-cart.roboshop.svc.cluster.local"
+  PORT: "8080"
+ingress:
+  enabled: false
