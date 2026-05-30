@@ -2,10 +2,11 @@ appName: roboshop-shipping
 appPort: 8080
 serviceType: ClusterIP
 image_tag: latest
-PARAMS: "DB_HOST DB_ROOT_PASS CART_HOST PORT"
+PARAMS: "DB_HOST DB_USER DB_PASS CART_HOST PORT"
 config_values:
   DB_HOST: "mysql.dev.roboshop.internal"
-  DB_ROOT_PASS: "RoboShop@1"
+  DB_USER: "root"
+  DB_PASS: "RoboShop@1"
   CART_HOST: "roboshop-cart.roboshop.svc.cluster.local"
   PORT: "8080"
 ingress:

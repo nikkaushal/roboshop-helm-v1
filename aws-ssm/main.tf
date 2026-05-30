@@ -100,7 +100,12 @@ variable "inputs" {
       value = "mysql.dev.roboshop.internal"
     },
     {
-      name  = "/roboshop-shipping/DB_ROOT_PASS"
+      name  = "/roboshop-shipping/DB_USER"
+      type  = "String"
+      value = "root"
+    },
+    {
+      name  = "/roboshop-shipping/DB_PASS"
       type  = "SecureString"
       value = "RoboShop@1"
     },
@@ -149,14 +154,24 @@ variable "inputs" {
 
     # roboshop-ratings
     {
-      name  = "/roboshop-ratings/DB_HOST"
+      name  = "/roboshop-ratings/MYSQL_HOST"
       type  = "String"
       value = "mysql.dev.roboshop.internal"
     },
     {
-      name  = "/roboshop-ratings/DB_ROOT_PASS"
+      name  = "/roboshop-ratings/MYSQL_USER"
+      type  = "String"
+      value = "root"
+    },
+    {
+      name  = "/roboshop-ratings/MYSQL_PASSWORD"
       type  = "SecureString"
       value = "RoboShop@1"
+    },
+    {
+      name  = "/roboshop-ratings/MYSQL_DATABASE"
+      type  = "String"
+      value = "ratings"
     },
     {
       name  = "/roboshop-ratings/PORT"
