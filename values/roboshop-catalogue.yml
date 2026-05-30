@@ -9,5 +9,8 @@ config_values:
   MYSQL_PASSWORD: "RoboShop@1"
   MYSQL_DATABASE: "catalogue"
   PORT: "8080"
+dbInit:
+  enabled: true
+  image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/roboshop-catalogue-db:latest
 ingress:
   enabled: false

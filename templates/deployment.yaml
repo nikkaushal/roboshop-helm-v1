@@ -30,6 +30,14 @@ spec:
         volumeMounts:
         - name: params
           mountPath: /data
+      {{- if and .Values.dbInit .Values.dbInit.enabled }}
+      - name: db-init
+        image: {{ .Values.dbInit.image }}
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: params
+          mountPath: /data
+      {{- end }}
       containers:
       - name: {{ .Values.appName }}
         image: 293222827824.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.appName }}:{{ .Values.image_tag }}
