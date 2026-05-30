@@ -2,13 +2,13 @@ appName: roboshop-payment
 appPort: 8080
 serviceType: ClusterIP
 image_tag: latest
-PARAMS: "AMQP_HOST AMQP_USER AMQP_PASS CART_HOST USER_HOST PORT"
+PARAMS: "AMQP_HOST AMQP_USER AMQP_PASS CART_URL USER_URL PORT"
 config_values:
   AMQP_HOST: "rabbitmq.dev.roboshop.internal"
   AMQP_USER: "roboshop"
   AMQP_PASS: "RoboShop@1"
-  CART_HOST: "roboshop-cart.roboshop.svc.cluster.local"
-  USER_HOST: "roboshop-user.roboshop.svc.cluster.local"
+  CART_URL: "http://roboshop-cart.roboshop.svc.cluster.local:8080"
+  USER_URL: "http://roboshop-user.roboshop.svc.cluster.local:8080"
   PORT: "8080"
 ingress:
   enabled: false

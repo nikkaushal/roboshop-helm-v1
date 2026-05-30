@@ -49,9 +49,24 @@ variable "inputs" {
 
     # roboshop-catalogue
     {
-      name  = "/roboshop-catalogue/MONGODB_HOST"
+      name  = "/roboshop-catalogue/MYSQL_HOST"
       type  = "String"
-      value = "mongodb.dev.roboshop.internal"
+      value = "mysql.dev.roboshop.internal"
+    },
+    {
+      name  = "/roboshop-catalogue/MYSQL_USER"
+      type  = "String"
+      value = "root"
+    },
+    {
+      name  = "/roboshop-catalogue/MYSQL_PASSWORD"
+      type  = "SecureString"
+      value = "RoboShop@1"
+    },
+    {
+      name  = "/roboshop-catalogue/MYSQL_DATABASE"
+      type  = "String"
+      value = "catalogue"
     },
     {
       name  = "/roboshop-catalogue/PORT"
@@ -137,14 +152,14 @@ variable "inputs" {
       value = "RoboShop@1"
     },
     {
-      name  = "/roboshop-payment/CART_HOST"
+      name  = "/roboshop-payment/CART_URL"
       type  = "String"
-      value = "roboshop-cart.roboshop.svc.cluster.local"
+      value = "http://roboshop-cart.roboshop.svc.cluster.local:8080"
     },
     {
-      name  = "/roboshop-payment/USER_HOST"
+      name  = "/roboshop-payment/USER_URL"
       type  = "String"
-      value = "roboshop-user.roboshop.svc.cluster.local"
+      value = "http://roboshop-user.roboshop.svc.cluster.local:8080"
     },
     {
       name  = "/roboshop-payment/PORT"
@@ -201,14 +216,9 @@ variable "inputs" {
       value = "RoboShop@1"
     },
     {
-      name  = "/roboshop-orders/CART_HOST"
+      name  = "/roboshop-orders/NOTIFICATION_URL"
       type  = "String"
-      value = "roboshop-cart.roboshop.svc.cluster.local"
-    },
-    {
-      name  = "/roboshop-orders/USER_HOST"
-      type  = "String"
-      value = "roboshop-user.roboshop.svc.cluster.local"
+      value = "http://roboshop-notification.roboshop.svc.cluster.local:8080"
     },
     {
       name  = "/roboshop-orders/SHIPPING_URL"

@@ -2,9 +2,12 @@ appName: roboshop-catalogue
 appPort: 8080
 serviceType: ClusterIP
 image_tag: latest
-PARAMS: "MONGODB_HOST PORT"
+PARAMS: "MYSQL_HOST MYSQL_USER MYSQL_PASSWORD MYSQL_DATABASE PORT"
 config_values:
-  MONGODB_HOST: "mongodb.dev.roboshop.internal"
+  MYSQL_HOST: "mysql.dev.roboshop.internal"
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "RoboShop@1"
+  MYSQL_DATABASE: "catalogue"
   PORT: "8080"
 ingress:
   enabled: false
